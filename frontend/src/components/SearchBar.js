@@ -1,8 +1,9 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { alpha, styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import React from "react";
-
+import React, { useContext } from "react";
+import { DataContext } from "../contexts/DataProvider";
+import { FilteredDataContext } from "../contexts/FilteredDataProvider";
 
 const Search = styled("div")(({ theme }) => ({
   width: "100%",
@@ -32,8 +33,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchBar({ data, setFilteredData }) {
-
+export default function SearchBar() {
+  const { data } = useContext(DataContext);
+  const { setFilteredData } = useContext(FilteredDataContext);
 
   const debounce = (func, delay) => {
     let timer;
@@ -57,7 +59,6 @@ export default function SearchBar({ data, setFilteredData }) {
     setFilteredData({ videos: newData });
   };
 
-  console.log();
   return (
     <Search id="search-bar">
       <StyledInputBase

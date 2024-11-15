@@ -75,10 +75,6 @@ export default function InputComponent({
           },
           "& .MuiInputLabel-root": { color: "gray" },
           "& .Mui-focused .MuiInputLabel-root": { color: "gray" },
-          "& input[type='date']::-webkit-calendar-picker-indicator": {
-            opacity: 0.4,
-            colorScheme: "dark",
-          },
         }}
       >
         <InputLabel

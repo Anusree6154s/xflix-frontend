@@ -1,7 +1,8 @@
 import { Box, Button, Modal, Typography, Alert } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import InputComponent from "./InputComponent";
 import axios from "axios";
+import { FilteredDataContext } from "../contexts/FilteredDataProvider";
 
 const style = {
   position: "absolute",
@@ -14,12 +15,8 @@ const style = {
   p: 4,
 };
 
-export default function UploadModal({
-  open,
-  handleClose,
-  handleNotification,
-  setFilteredData,
-}) {
+export default function UploadModal({ open, handleClose, handleNotification }) {
+  const { setFilteredData } = useContext(FilteredDataContext);
   const [video, setVideo] = useState({
     "Video Link": "",
     "Thumbnail Image Link": "",
