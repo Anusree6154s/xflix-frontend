@@ -1,6 +1,6 @@
 <div align="center">
     <img src="https://crio-directus-assets.s3.ap-south-1.amazonaws.com/939aec42-d73b-4007-8369-c420055f4e33.png" width="100"/>
-    <h1 id="title">XFlix - Video Sharing Platform</h1>
+    <h1 id="title">XFlix</h1>
     <p><strong>Full-stack implementation of XFlix - A video sharing platform</strong></p>
     <p>
       <a href="https://xflix-frontend-hazel.vercel.app/">XFlix Website</a> •
