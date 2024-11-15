@@ -3,8 +3,8 @@
     <h1 id="title">XFlix - Video Sharing Platform</h1>
     <p><strong>Full-stack implementation of XFlix - A video sharing platform</strong></p>
     <p>
-      <a href="">View XFlix Frontend</a> •
-      <a href="https://xflix-backend-vmhx.onrender.com/v1/videos">View XFlix Backend</a> •
+      <a href="">XFlix Website</a> •
+      <a href="https://github.com/Anusree6154s/xflix-backend">XFlix Backend Repo</a> •
       <a href="https://documenter.getpostman.com/view/33572999/2sAY55ZxeS">API Documentation</a>
     </p>
     <img src="https://github.com/user-attachments/assets/4d518159-9fb8-479f-8f46-33aa9b1258d2" width="700"/>
