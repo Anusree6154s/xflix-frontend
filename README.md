@@ -3,7 +3,7 @@
     <h1 id="title">XFlix - Video Sharing Platform</h1>
     <p><strong>Full-stack implementation of XFlix - A video sharing platform</strong></p>
     <p>
-      <a href="">XFlix Website</a> •
+      <a href="https://xflix-frontend-hazel.vercel.app/">XFlix Website</a> •
       <a href="https://github.com/Anusree6154s/xflix-backend">XFlix Backend Repo</a> •
       <a href="https://documenter.getpostman.com/view/33572999/2sAY55ZxeS">API Documentation</a>
     </p>
