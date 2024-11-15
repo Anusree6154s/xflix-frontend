@@ -3,13 +3,14 @@ import { alpha, styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import React from "react";
 
+
 const Search = styled("div")(({ theme }) => ({
   width: "100%",
   backgroundColor: "black",
   border: "1.5px solid #444d56",
   color: "white",
   fontWeight: "bold",
-  [theme.breakpoints.up("md")]: {
+  [theme.breakpoints.up("sm")]: {
     width: "33.3333%", // Equivalent to md:w-1/3
   },
   borderRadius: theme.shape.borderRadius,
@@ -23,7 +24,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     paddingLeft: "10px",
     transition: theme.transitions.create("width"),
     width: "100%",
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("sm")]: {
       width: "20ch",
     },
     textAlign: { xs: "center", sm: "left" },
@@ -32,6 +33,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchBar({ data, setFilteredData }) {
+
+
   const debounce = (func, delay) => {
     let timer;
     return (...args) => {

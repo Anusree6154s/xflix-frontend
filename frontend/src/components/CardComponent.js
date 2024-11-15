@@ -18,14 +18,15 @@ export default function CardComponent({ video }) {
       className="!bg-transparent relative group cursor-pointer"
     >
       <Box className="inset-0 z-10 absolute bg-white opacity-5 w-full h-full hidden group-hover:block"></Box>
-      <CardActionArea>
+      <CardActionArea className="!h-full !flex !flex-col">
         <CardMedia
           component="img"
           height="140"
           image={video.previewImage}
           alt="green iguana"
+          className="flex-1"
         />
-        <CardContent className="bg-[#202020]">
+        <CardContent className="bg-[#202020] w-full">
           <Typography
             gutterBottom
             variant="body2"

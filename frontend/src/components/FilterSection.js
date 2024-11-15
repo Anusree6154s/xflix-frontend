@@ -3,8 +3,13 @@ import Chip from "@mui/material/Chip";
 import React, { useEffect, useState } from "react";
 import SortDropdown from "./SortDropdown";
 
-export default function FilterSection({ data, filter, setFilter, sortOption, setSortOption,  }) {
-
+export default function FilterSection({
+  data,
+  filter,
+  setFilter,
+  sortOption,
+  setSortOption,
+}) {
   const [filterOptions, setFilterOptions] = useState({
     genres: [],
     ageGroups: [],
@@ -64,7 +69,7 @@ export default function FilterSection({ data, filter, setFilter, sortOption, set
                   ageGroup === filter.ageGroup
                     ? "!bg-white !text-black"
                     : "!bg-none !text-white"
-                } !cursor-pointer`}
+                } !cursor-pointer ${ageGroup === "Any age group" ? "w-fit" : "w-16"}`}
                 variant={ageGroup === filter.ageGroup ? "filled" : "outlined"}
                 onClick={() => setFilter((prev) => ({ ...prev, ageGroup }))}
                 clickable={false}

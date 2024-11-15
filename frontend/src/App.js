@@ -18,21 +18,22 @@ function App() {
     const fetchData = async () => {
       try {
         // const res = await axios.get('https://xflix-backend-vmhx.onrender.com/v1/videos')
-        const res = await axios.get(
-          "https://24cfea2d-b57e-422b-99d4-390ad149e450.mock.pstmn.io/v1/videos"
-        );
+        const res = await axios.get('http://localhost:8082/v1/videos')
+        // const res = await axios.get(
+        //   "https://24cfea2d-b57e-422b-99d4-390ad149e450.mock.pstmn.io/v1/videos"
+        // );
         setData(res.data);
       } catch (error) {
         console.error(error);
       }
     };
-
+    
     fetchData();
   }, []);
-
+  
   console.log(data);
   return (
-    <div className="App bg-[#181818] h-full font-['Archivo']">
+    <div className="App bg-[#181818] min-h-screen font-['Archivo']">
       <Header data={data} setFilteredData={setFilteredData} />
       <FilterSection
         data={data}

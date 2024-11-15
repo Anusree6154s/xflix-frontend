@@ -29,7 +29,7 @@ export default function ContentSection({
         ),
       });
     }
-  }, [data, filter, sortOption]);
+  }, [data, filter, setFilteredData, sortOption]);
 
   return (
     <section
