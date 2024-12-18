@@ -1,4 +1,4 @@
-import { Visibility, ThumbUp, ThumbDown } from "@mui/icons-material";
+import { Visibility } from "@mui/icons-material";
 import {
   Box,
   Card,
@@ -79,7 +79,9 @@ export default function CardComponent({ video }) {
             {video.title}
           </Typography>
           <Box className="text-[#999999] flex justify-between !text-xs">
-            <Typography className="!text-xs">{date} years ago</Typography>
+            <Typography className="!text-xs">
+              {date} years ago | {video.genre} | {video.contentRating}
+            </Typography>
             <Typography className="!text-xs flex items-center gap-1">
               {video.viewCount}
               <Visibility className="!text-base" />

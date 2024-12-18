@@ -19,12 +19,35 @@ export default function SortDropdown({ sortOption, setSortOption }) {
           height: "80%",
           fontSize: "small",
           color: "white",
-          border: "1.5px solid #444d56",
+          border: "1.5px solid #616161",
           "&:focus": {
             outline: "none",
           },
           "& .MuiSelect-icon": {
-            color: "white", 
+            color: "white",
+          },
+          "& .MuiMenu-paper": {
+            backgroundColor: "black",
+            color: "white",
+          },
+        }}
+        MenuProps={{
+          PaperProps: {
+            sx: {
+              bgcolor: "black", // Background color of dropdown
+              "& .MuiMenuItem-root": {
+                color: "white", // Text color of menu items
+                "&:hover": {
+                  bgcolor: "#616161", // Background color on hover
+                },
+              },
+              "&.Mui-selected": {
+                bgcolor: "#616161", // Background color when selected
+                "&:hover": {
+                  bgcolor: "#8c8c8c", // Background color on hover
+                },
+              },
+            },
           },
         }}
       >

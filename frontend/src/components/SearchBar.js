@@ -1,5 +1,4 @@
-import SearchIcon from "@mui/icons-material/Search";
-import { alpha, styled } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import React, { useContext } from "react";
 import { DataContext } from "../contexts/DataProvider";

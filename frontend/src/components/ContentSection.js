@@ -3,7 +3,6 @@ import CardComponent from "./CardComponent";
 import { DataContext } from "../contexts/DataProvider";
 import { FilteredDataContext } from "../contexts/FilteredDataProvider";
 import { useParams } from "react-router-dom";
-import { CardMedia } from "@mui/material";
 import VideoPlayer from "./VideoPlayer";
 
 export default function ContentSection({ filter, sortOption }) {
@@ -23,11 +22,13 @@ export default function ContentSection({ filter, sortOption }) {
       });
 
       setFilteredData({
-        videos: newFilteredData.sort((a, b) =>
-          sortOption === "releaseDate"
-            ? a[sortOption] - b[sortOption]
-            : b[sortOption] - a[sortOption]
-        ),
+        videos: newFilteredData.sort((a, b) => {
+          let date1 = new Date(a[sortOption]);
+          let date2 =new Date(b[sortOption]);
+          return sortOption === "releaseDate"
+            ? date1 -date2
+            : date2 - date1;
+        }),
       });
     }
   }, [data, filter, setFilteredData, sortOption]);

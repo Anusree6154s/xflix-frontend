@@ -1,5 +1,5 @@
-import { Box, Button, Modal, Typography, Alert } from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
+import { Box, Button, Modal, Typography } from "@mui/material";
+import React, { useContext, useState } from "react";
 import InputComponent from "./InputComponent";
 import axios from "axios";
 import { FilteredDataContext } from "../contexts/FilteredDataProvider";
