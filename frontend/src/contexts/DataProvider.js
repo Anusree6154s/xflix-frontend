@@ -11,7 +11,6 @@ export default function DataProvider({ children }) {
     const fetchData = async () => {
       try {
         const res = await axios.get(BASE_URL);
-        console.log(res.data)
         setData(res.data);
       } catch (error) {
         console.error(error);

@@ -12,8 +12,20 @@ import { useParams } from "react-router-dom";
 export default function Header() {
   const { id } = useParams();
   const [open, setOpen] = React.useState(false);
+  const { data } = useContext(DataContext);
+  const { setFilteredData } = useContext(FilteredDataContext);
+
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = (id) => {
+    setOpen(false);
+    let newVideo = document.getElementById(id);
+    if (newVideo) {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  };
   const handleNotification = (message, variant) => {
     enqueueSnackbar(message, {
       variant,
@@ -23,10 +35,6 @@ export default function Header() {
       },
     });
   };
-
-  const { data } = useContext(DataContext);
-  const { setFilteredData } = useContext(FilteredDataContext);
-  // const navigate=useNavigat
 
   return (
     <header className="bg-[#222222] flex flex-col sm:flex-row gap-4 justify-between items-center p-[5%] md:px-[2%] md:py-[1%]">

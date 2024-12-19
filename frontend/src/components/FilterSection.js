@@ -33,7 +33,7 @@ export default function FilterSection({
             )
         )
       );
-      
+
       setFilterOptions((prev) => ({
         genres: ["All Genre", ...newGenres],
         ageGroups: ["Any age group", ...newAgeGroups],
@@ -68,25 +68,22 @@ export default function FilterSection({
           className="w-[80%] m-auto flex justify-between items-center"
         >
           {filterOptions.ageGroups.length !== 0 &&
-            filterOptions.ageGroups.map((ageGroup, index) => {
-              console.log(ageGroup);
-              return (
-                <Chip
-                  key={index}
-                  label={ageGroup}
-                  className={`${
-                    ageGroup === filter.ageGroup
-                      ? "!bg-white !text-black"
-                      : "!bg-none !text-white"
-                  } !cursor-pointer ${
-                    ageGroup === "Any age group" ? "w-fit" : "w-16"
-                  }`}
-                  variant={ageGroup === filter.ageGroup ? "filled" : "outlined"}
-                  onClick={() => setFilter((prev) => ({ ...prev, ageGroup }))}
-                  clickable={false}
-                />
-              );
-            })}
+            filterOptions.ageGroups.map((ageGroup, index) => (
+              <Chip
+                key={index}
+                label={ageGroup}
+                className={`${
+                  ageGroup === filter.ageGroup
+                    ? "!bg-white !text-black"
+                    : "!bg-none !text-white"
+                } !cursor-pointer ${
+                  ageGroup === "Any age group" ? "w-fit" : "w-16"
+                }`}
+                variant={ageGroup === filter.ageGroup ? "filled" : "outlined"}
+                onClick={() => setFilter((prev) => ({ ...prev, ageGroup }))}
+                clickable={false}
+              />
+            ))}
         </Box>
       </Box>
     </section>

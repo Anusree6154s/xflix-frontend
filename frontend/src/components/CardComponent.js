@@ -20,45 +20,49 @@ const getDate = (video) => {
   return date;
 };
 
-const updateViewCount = async (video) => {
-  try {
-    await axios.patch(BASE_URL + `/${video._id}/views`);
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-const updateLocalViewCount = (video, fiteredDataObject) => {
-  const { filteredData, setFilteredData } = fiteredDataObject;
-  const videosCopy = [...filteredData.videos];
-  const index = videosCopy.findIndex((item) => item._id === video._id);
-  videosCopy.splice(index, 1);
-  setFilteredData({
-    videos: [...videosCopy, { ...video, viewCount: video.viewCount + 1 }],
-  });
-};
-
-export default function CardComponent({ video }) {
-  const fiteredDataObject = useContext(FilteredDataContext);
+export default function CardComponent({ video, count }) {
+  const { filteredData, setFilteredData } = useContext(FilteredDataContext);
   const navigate = useNavigate();
   const { id: videoId } = useParams();
   const date = getDate(video);
 
-  const handleVideoClick = async (video) => {
-    await updateViewCount(video);
-    updateLocalViewCount(video, fiteredDataObject);
-    navigate(`/video/${video._id}`);
+  const handleVideoClick = (currVideo) => {
+    updateViewCount(currVideo);
+    updateLocalViewCount(currVideo);
+    navigate(`/video/${currVideo._id}`);
+  };
+
+  const updateViewCount = async (currVideo) => {
+    try {
+      await axios.patch(BASE_URL + `/${currVideo._id}/views`);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const updateLocalViewCount = (currVideo) => {
+    const videosCopy = [...filteredData.videos];
+    const index = videosCopy.findIndex((item) => item._id === currVideo._id);
+    videosCopy.splice(index, 1);
+    setFilteredData({
+      videos: [
+        ...videosCopy,
+        { ...currVideo, viewCount: currVideo.viewCount + 1 },
+      ],
+    });
   };
 
   return (
     <Card
       sx={{ maxWidth: 345 }}
       className={
-        videoId === video._id
+        videoId && videoId === video._id
           ? "hidden"
           : "col-span-12 sm:col-span-6 lg:col-span-4 xl:col-span-3 !bg-transparent relative group cursor-pointer transition-all duration-300 !max-w-full"
       }
       onClick={() => handleVideoClick(video)}
+      key={video._id}
+      id={video._id}
     >
       <Box className="inset-0 z-10 absolute bg-white opacity-5 w-full h-full hidden group-hover:block"></Box>
       <CardActionArea className="!h-full !flex !flex-col">

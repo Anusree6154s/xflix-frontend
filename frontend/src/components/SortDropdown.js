@@ -34,17 +34,17 @@ export default function SortDropdown({ sortOption, setSortOption }) {
         MenuProps={{
           PaperProps: {
             sx: {
-              bgcolor: "black", // Background color of dropdown
+              bgcolor: "black", 
               "& .MuiMenuItem-root": {
-                color: "white", // Text color of menu items
+                color: "white", 
                 "&:hover": {
-                  bgcolor: "#616161", // Background color on hover
+                  bgcolor: "#616161", 
                 },
               },
               "&.Mui-selected": {
-                bgcolor: "#616161", // Background color when selected
+                bgcolor: "#616161", 
                 "&:hover": {
-                  bgcolor: "#8c8c8c", // Background color on hover
+                  bgcolor: "#8c8c8c", 
                 },
               },
             },

@@ -8,8 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { forwardRef, useState } from "react";
 import { BASE_URL } from "../app/contants";
 
 const getDate = (video) => {
@@ -19,12 +18,11 @@ const getDate = (video) => {
   return date;
 };
 
-export default function VideoPlayer({ video }) {
+const VideoPlayer = forwardRef(({ video }, ref) => {
   const [vote, setVote] = useState({
     upVote: { votes: video.votes.upVotes, change: false },
     downVote: { votes: video.votes.downVotes, change: false },
   });
-  const navigate = useNavigate();
   const date = getDate(video);
 
   const handleVote = async (type, changeBoolean) => {
@@ -51,7 +49,7 @@ export default function VideoPlayer({ video }) {
     <Card
       sx={{ maxWidth: 345 }}
       className="col-span-12 sm:row-span-2 xl:row-span-3 !bg-transparent relative group transition-all duration-300 !max-w-full"
-      onClick={() => navigate(`/video/${video._id}`)}
+      ref={ref}
     >
       <CardActionArea className="!h-full !flex !flex-col">
         <CardMedia
@@ -103,4 +101,6 @@ export default function VideoPlayer({ video }) {
       </CardActionArea>
     </Card>
   );
-}
+});
+
+export default VideoPlayer;

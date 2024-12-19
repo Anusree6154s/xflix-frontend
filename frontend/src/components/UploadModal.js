@@ -43,7 +43,7 @@ export default function UploadModal({ open, handleClose, handleNotification }) {
     e.preventDefault();
 
     const post = {
-      videoLink: video["Video Link"] || "youtube.com/embed/hGrRg8aoBMU",
+      videoLink: video["Video Link"] || "https://www.youtube.com/watch?v=hGrRg8aoBMU",
       title: video["Title"] || "Upskill with Crio",
       genre: video["Genre"] || "Education",
       releaseDate: video["Release Date"] || "12 Jan 2021",
@@ -53,8 +53,11 @@ export default function UploadModal({ open, handleClose, handleNotification }) {
         "https://i.ytimg.com/vi_webp/hGrRg8aoBMU/sddefault.webp",
     };
     try {
-      await axios.post("http://localhost:8082/v1/videos", post);
-      setFilteredData((prev) => ({ videos: [...prev.videos, post] }));
+      let newVideo = await axios.post("http://localhost:8082/v1/videos", post);
+
+      setFilteredData((prev) => {
+        return { videos: [...prev.videos, newVideo.data] };
+      });
       handleNotification("Uploaded Successfully", "success");
       setVideo({
         "Video Link": "",
@@ -64,7 +67,7 @@ export default function UploadModal({ open, handleClose, handleNotification }) {
         "Suitable age group for the video": "",
         "Release Date": "",
       });
-      handleClose();
+      handleClose(newVideo.data._id);
     } catch (error) {
       console.error(error.response.data.message);
       if (error.response) handleNotification("Error", "error");
@@ -110,7 +113,7 @@ export default function UploadModal({ open, handleClose, handleNotification }) {
             <Button
               variant="text"
               className="bg-transparent !text-white"
-              onClick={handleClose}
+              onClick={() => handleClose(null)}
             >
               Cancel
             </Button>
