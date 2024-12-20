@@ -11,7 +11,7 @@ import axios from "axios";
 import React, { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BASE_URL } from "../app/contants";
-import { FilteredDataContext } from "../contexts/FilteredDataProvider";
+import { DataContext } from "../contexts/DataProvider";
 
 const getDate = (video) => {
   const givenDate = new Date(video.releaseDate).getFullYear();
@@ -20,16 +20,33 @@ const getDate = (video) => {
   return date;
 };
 
-export default function CardComponent({ video, count }) {
-  const { filteredData, setFilteredData } = useContext(FilteredDataContext);
+
+
+export default function CardComponent({ video, vote, selectedVideo }) {
+  const { data, setData } = useContext(DataContext);
   const navigate = useNavigate();
   const { id: videoId } = useParams();
   const date = getDate(video);
 
   const handleVideoClick = (currVideo) => {
+    updateVoteInData();
     updateViewCount(currVideo);
     updateLocalViewCount(currVideo);
     navigate(`/video/${currVideo._id}`);
+  };
+
+  const updateVoteInData = () => {
+    if (vote) {
+      const dataCopy = [...data.videos];
+      const index = dataCopy.findIndex((item) => item._id === video._id);
+      dataCopy.splice(index, 1);
+      const voteCount = {
+        upVotes: vote.upVote.votes,
+        downVotes: vote.downVote.votes,
+      };
+      dataCopy.push({ ...video, votes: voteCount });
+      setData({ videos: dataCopy });
+    }
   };
 
   const updateViewCount = async (currVideo) => {
@@ -41,10 +58,10 @@ export default function CardComponent({ video, count }) {
   };
 
   const updateLocalViewCount = (currVideo) => {
-    const videosCopy = [...filteredData.videos];
+    const videosCopy = [...data.videos];
     const index = videosCopy.findIndex((item) => item._id === currVideo._id);
     videosCopy.splice(index, 1);
-    setFilteredData({
+    setData({
       videos: [
         ...videosCopy,
         { ...currVideo, viewCount: currVideo.viewCount + 1 },

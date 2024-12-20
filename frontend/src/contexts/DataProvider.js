@@ -21,6 +21,6 @@ export default function DataProvider({ children }) {
   }, []);
 
   return (
-    <DataContext.Provider value={{ data }}>{children}</DataContext.Provider>
+    <DataContext.Provider value={{ data, setData }}>{children}</DataContext.Provider>
   );
 }

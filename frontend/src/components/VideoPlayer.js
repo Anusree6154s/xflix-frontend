@@ -1,14 +1,7 @@
 import { Visibility, ThumbUp, ThumbDown } from "@mui/icons-material";
-import {
-  Box,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import axios from "axios";
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef } from "react";
 import { BASE_URL } from "../app/contants";
 
 const getDate = (video) => {
@@ -18,31 +11,31 @@ const getDate = (video) => {
   return date;
 };
 
-const VideoPlayer = forwardRef(({ video }, ref) => {
-  const [vote, setVote] = useState({
-    upVote: { votes: video.votes.upVotes, change: false },
-    downVote: { votes: video.votes.downVotes, change: false },
-  });
+const VideoPlayer = forwardRef(({ video, vote, setVote }, ref) => {
   const date = getDate(video);
 
-  const handleVote = async (type, changeBoolean) => {
+  const handleVote = async (e, type, changeBoolean) => {
+    e.stopPropagation();
     const change = changeBoolean ? "increase" : "decrease";
     try {
       await axios.patch(`${BASE_URL}/${video._id}/votes`, {
         vote: type,
         change,
       });
-
-      let updateVote = changeBoolean
-        ? vote[type].votes + 1
-        : vote[type].votes - 1;
-      setVote((prev) => ({
-        ...prev,
-        [type]: { votes: updateVote, change: changeBoolean },
-      }));
+      updateVoteInState(type, changeBoolean);
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const updateVoteInState = (type, changeBoolean) => {
+    let updateVote = changeBoolean
+      ? vote[type].votes + 1
+      : vote[type].votes - 1;
+    setVote((prev) => ({
+      ...prev,
+      [type]: { votes: updateVote, change: changeBoolean },
+    }));
   };
 
   return (
@@ -51,10 +44,10 @@ const VideoPlayer = forwardRef(({ video }, ref) => {
       className="col-span-12 sm:row-span-2 xl:row-span-3 !bg-transparent relative group transition-all duration-300 !max-w-full"
       ref={ref}
     >
-      <CardActionArea className="!h-full !flex !flex-col">
+      <Box className="!h-full !flex !flex-col">
         <CardMedia
           component="iframe"
-          src={`https://www.${video.videoLink}?autoplay=1&mute=1`}
+          src={`https://www.${video.videoLink}?autoplay=0&mute=1`}
           title={video.title}
           className="flex-1 w-full"
         />
@@ -77,8 +70,8 @@ const VideoPlayer = forwardRef(({ video }, ref) => {
             </Box>
             <Box className="flex gap-2 items-center border-2 border-gray-400 px-2 rounded-[50px] cursor-pointer ">
               <Box
-                className="flex gap-2"
-                onClick={() => handleVote("upVote", !vote.upVote.change)}
+                className="flex gap-2 z-40"
+                onClick={(e) => handleVote(e, "upVote", !vote.upVote.change)}
               >
                 <ThumbUp fontSize="inherit" />
                 <Typography className="text-white !text-xs">
@@ -87,8 +80,10 @@ const VideoPlayer = forwardRef(({ video }, ref) => {
               </Box>
               <Typography className="!font-black">|</Typography>
               <Box
-                className="flex gap-2"
-                onClick={() => handleVote("downVote", !vote.downVote.change)}
+                className="flex gap-2 z-40"
+                onClick={(e) =>
+                  handleVote(e, "downVote", !vote.downVote.change)
+                }
               >
                 <ThumbDown fontSize="inherit" />
                 <Typography className="text-white !text-xs">
@@ -98,7 +93,7 @@ const VideoPlayer = forwardRef(({ video }, ref) => {
             </Box>
           </Box>
         </CardContent>
-      </CardActionArea>
+      </Box>
     </Card>
   );
 });

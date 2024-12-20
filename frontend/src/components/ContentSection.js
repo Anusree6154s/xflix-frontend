@@ -12,7 +12,7 @@ export default function ContentSection({ filter, sortOption }) {
   const selectedVideoRef = useRef(null);
 
   useEffect(() => {
-    if (data && !videoId) {
+    if (data) {
       const newFilteredData = data.videos.filter((video) => {
         const genreMatch =
           filter.genre === "All Genre" || video.genre === filter.genre;
@@ -34,6 +34,8 @@ export default function ContentSection({ filter, sortOption }) {
   }, [data, filter, setFilteredData, sortOption]);
 
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [vote, setVote] = useState(null);
+
   useEffect(() => {
     if (filteredData && videoId) {
       const video = filteredData.videos.find((video) => video._id === videoId);
@@ -42,6 +44,13 @@ export default function ContentSection({ filter, sortOption }) {
   }, [filteredData, videoId]);
 
   useEffect(() => {
+    if (selectedVideo) {
+      setVote({
+        upVote: { votes: selectedVideo.votes.upVotes, change: false },
+        downVote: { votes: selectedVideo.votes.downVotes, change: false },
+      });
+    }
+
     if (selectedVideo && selectedVideoRef.current) {
       selectedVideoRef.current.scrollIntoView({
         behavior: "smooth",
@@ -55,8 +64,13 @@ export default function ContentSection({ filter, sortOption }) {
       id="content-section"
       className="m-auto grid grid-cols-12 gap-6 w-[70%] py-[2%] grid-rows-4"
     >
-      {selectedVideo && (
-        <VideoPlayer video={selectedVideo} ref={selectedVideoRef} />
+      {selectedVideo && vote && (
+        <VideoPlayer
+          video={selectedVideo}
+          ref={selectedVideoRef}
+          vote={vote}
+          setVote={setVote}
+        />
       )}
       {filteredData &&
         filteredData.videos.map((video, index) => (
@@ -65,6 +79,8 @@ export default function ContentSection({ filter, sortOption }) {
             key={video._id}
             count={index}
             id="card-component"
+            vote={vote}
+            selectedVideo={selectedVideo}
           />
         ))}
     </section>

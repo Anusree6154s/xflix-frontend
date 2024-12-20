@@ -3,6 +3,8 @@ import React, { useContext, useState } from "react";
 import InputComponent from "./InputComponent";
 import axios from "axios";
 import { FilteredDataContext } from "../contexts/FilteredDataProvider";
+import { BASE_URL } from "../app/contants";
+import { DataContext } from "../contexts/DataProvider";
 
 const style = {
   position: "absolute",
@@ -16,7 +18,8 @@ const style = {
 };
 
 export default function UploadModal({ open, handleClose, handleNotification }) {
-  const { setFilteredData } = useContext(FilteredDataContext);
+  // const { setFilteredData } = useContext(FilteredDataContext);
+  const { setData } = useContext(DataContext);
   const [video, setVideo] = useState({
     "Video Link": "",
     "Thumbnail Image Link": "",
@@ -53,9 +56,12 @@ export default function UploadModal({ open, handleClose, handleNotification }) {
         "https://i.ytimg.com/vi_webp/hGrRg8aoBMU/sddefault.webp",
     };
     try {
-      let newVideo = await axios.post("http://localhost:8082/v1/videos", post);
+      let newVideo = await axios.post(BASE_URL, post);
 
-      setFilteredData((prev) => {
+      // setFilteredData((prev) => {
+      //   return { videos: [...prev.videos, newVideo.data] };
+      // });
+      setData((prev) => {
         return { videos: [...prev.videos, newVideo.data] };
       });
       handleNotification("Uploaded Successfully", "success");
